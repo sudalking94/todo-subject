@@ -8,6 +8,7 @@ class Board(core_models.TimeStampedModel):
     content = models.TextField()
     tag = models.CharField(max_length=20, blank=True)
     complete_yn = models.BooleanField()
+    complete_date = models.DateTimeField(blank=True, null=True)
 
     def get_content(self):
         result = self.content[:30]
