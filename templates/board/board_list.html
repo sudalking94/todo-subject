@@ -46,13 +46,17 @@
                                    {% endif %} 
                                 </td>                                                                                                                                                      
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">                                    
-                                    <input id="{{board.pk}}-tag" type="text" value="{{ board.tag }}" disabled />
+                                    <input id="{{board.pk}}-tag" type="text" value="{{ board.tag }}" disabled class="border-0" />
                                     <i id="{{board.pk}}-tag-icon" class="fas fa-edit text-blue-500 hover:cursor-pointer" onclick="editTag({{board.pk}})" ></i> 
-                                    <button id="{{board.pk}}-tag-btn" class="p-2 bg-blue-300 rounded-md hidden">제출</button>                                   
+                                    <button id="{{board.pk}}-tag-btn" class="p-2 bg-blue-300 rounded-md hidden">수정</button>                                   
+                                    <button id="{{board.pk}}-tag-cancel" class="p-2 bg-red-300 rounded-md hidden">취소</button>                                   
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">                                    
-                                    <input id="{{board.pk}}-content" type="text" value="{{ board.get_content }}" disabled class="rounded outline-none" >
-                                    <i class="fas fa-edit text-blue-500 hover:cursor-pointer" onclick="editContent({{board.pk}})" ></i>                                    
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 relative">                                    
+                                    <span class="inline-block w-full">{{ board.get_content }}</span>
+                                    <i id="{{board.pk}}-content-icon" class="fas fa-edit text-blue-500 hover:cursor-pointer" onclick="editContent({{board.pk}})" ></i> 
+                                    <button id="{{board.pk}}-content-btn" class="p-2 bg-blue-300 rounded-md hidden">수정</button>                                   
+                                    <button id="{{board.pk}}-content-cancel" class="p-2 bg-red-300 rounded-md hidden">취소</button>                                   
+                                    <textarea id="{{board.pk}}-content-textarea" cols="30" rows="10" class="absolute right-0 top-12 z-10 hidden">{{ board.content }}</textarea>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                     {% if board.complete_date %}
