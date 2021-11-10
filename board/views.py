@@ -1,8 +1,8 @@
 import json
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import redirect, reverse
 from django.views.generic import ListView
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 from .models import Board
 
 
@@ -27,13 +27,12 @@ def delete_board(self, board_pk=None):
     return redirect(reverse("boards:board-list"))
 
 
-@csrf_exempt
 @require_http_methods(["PUT"])
 def edit_board(request):
     """
     내용 및 태그 수정
     """
-    print("="*50)
+
     data = json.loads(request.body.decode("utf-8"))
     if data.get("tag"):
         """ 태그 수정 """
@@ -47,4 +46,4 @@ def edit_board(request):
         board.content = data.get("content")
         board.save()
 
-    return render(request, 'board/board_list.html')
+    return HttpResponse()
