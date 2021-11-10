@@ -5,8 +5,12 @@ name = "pypi"
 
 [packages]
 django = "*"
+django-seed = "*"
+psycopg2 = "*"
+django-tailwind = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"
