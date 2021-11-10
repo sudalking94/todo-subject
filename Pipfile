@@ -8,6 +8,7 @@ django = "*"
 django-seed = "*"
 psycopg2 = "*"
 django-tailwind = "*"
+django-dotenv = "*"
 
 [dev-packages]
 autopep8 = "*"
