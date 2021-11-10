@@ -1,9 +1,15 @@
-from django.shortcuts import redirect, reverse
+import json
+from django.shortcuts import redirect, render, reverse
 from django.views.generic import ListView
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
 from .models import Board
 
 
 class BoardListView(ListView):
+    """
+    생성일자 순으로 to do 목록 조회
+    """
 
     context_object_name = "boards"
     paginate_by = 10
@@ -13,9 +19,32 @@ class BoardListView(ListView):
 
 
 def delete_board(self, board_pk=None):
-    print("="*50)
-    print(board_pk)
+    """
+    선택한 to do 행 삭제
+    """
     board = Board.objects.get(pk=board_pk)
-
     board.delete()
     return redirect(reverse("boards:board-list"))
+
+
+@csrf_exempt
+@require_http_methods(["PUT"])
+def edit_board(request):
+    """
+    내용 및 태그 수정
+    """
+    print("="*50)
+    data = json.loads(request.body.decode("utf-8"))
+    if data.get("tag"):
+        """ 태그 수정 """
+        board = Board.objects.get(pk=data.get("pk"))
+        board.tag = data.get("tag")
+        board.save()
+
+    if data.get("content"):
+        """ 내용 수정 """
+        board = Board.objects.get(pk=data.get("pk"))
+        board.content = data.get("content")
+        board.save()
+
+    return render(request, 'board/board_list.html')
