@@ -17,7 +17,19 @@ class BoardListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Board.objects.order_by("-created", "tag", "content")
+        filters = {}
+        for key, value in self.request.GET.items():
+            if key in ['tag', 'content', 'complete_yn']:
+                if value != '':
+                    if key == 'content':
+                        key = 'content__contains'
+                    elif key == 'complete_yn':
+                        if value == '1':
+                            value = True
+
+                    filters[key] = value
+
+        return Board.objects.filter(**filters).order_by("-created", "tag", "content")
 
 
 def delete_board(self, board_pk=None):
