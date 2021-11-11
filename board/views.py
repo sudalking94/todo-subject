@@ -1,10 +1,11 @@
 import json
 from datetime import datetime
 from django.shortcuts import redirect, reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from .models import Board
+from .forms import BoardModelForm
 
 
 class BoardListView(ListView):
@@ -26,6 +27,15 @@ def delete_board(self, board_pk=None):
     board = Board.objects.get(pk=board_pk)
     board.delete()
     return redirect(reverse("boards:board-list"))
+
+
+class BoardCreateView(CreateView):
+    model = Board
+    form_class = BoardModelForm
+    template_name = "board/board_carete.html"
+
+    def get_success_url(self):
+        return reverse("boards:board-list")
 
 
 @require_http_methods(["PUT"])
