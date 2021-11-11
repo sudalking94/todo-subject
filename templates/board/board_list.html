@@ -39,10 +39,11 @@
                         {% for board in boards %}
                             <tr class="bg-white">
                                 <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <input id="{{board.pk}}-hidden" type="hidden" value="{{board.complete_yn}}" >
                                    {% if board.complete_yn %}            
-                                   <i class="fas fa-check-double text-green-500 hover:cursor-pointer"></i>
+                                   <i class="fas fa-check-double text-green-500 hover:cursor-pointer" onclick="checkToggleHandler({{board.pk}})" ></i>
                                    {% else %}
-                                   <i class="fas fa-check opacity-30 hover:cursor-pointer"></i>                                   
+                                   <i class="fas fa-check opacity-30 hover:cursor-pointer" onclick="unCheckToggleHandler({{board.pk}})"></i> 
                                    {% endif %} 
                                 </td>                                                                                                                                                      
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">                                    
@@ -54,8 +55,10 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 relative">                                    
                                     <span class="inline-block w-full">{{ board.get_content }}</span>
                                     <i id="{{board.pk}}-content-icon" class="fas fa-edit text-blue-500 hover:cursor-pointer" onclick="editContent({{board.pk}})" ></i> 
-                                    <button id="{{board.pk}}-content-btn" class="p-2 bg-blue-300 rounded-md hidden">수정</button>                                   
-                                    <button id="{{board.pk}}-content-cancel" class="p-2 bg-red-300 rounded-md hidden">취소</button>                                   
+                                    <div class="absolute bottom-6 left-56">
+                                        <button id="{{board.pk}}-content-btn" class="p-2 bg-blue-300 rounded-md hidden">수정</button>                                   
+                                        <button id="{{board.pk}}-content-cancel" class="p-2 bg-red-300 rounded-md hidden">취소</button>                                   
+                                    </div>
                                     <textarea id="{{board.pk}}-content-textarea" cols="30" rows="10" class="absolute right-0 top-12 z-10 hidden">{{ board.content }}</textarea>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">

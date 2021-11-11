@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from django.shortcuts import redirect, reverse
 from django.views.generic import ListView
 from django.views.decorators.http import require_http_methods
@@ -30,20 +31,35 @@ def delete_board(self, board_pk=None):
 @require_http_methods(["PUT"])
 def edit_board(request):
     """
-    내용 및 태그 수정
+    내용, 태그, 토글 수정
     """
 
     data = json.loads(request.body.decode("utf-8"))
-    if data.get("tag"):
-        """ 태그 수정 """
-        board = Board.objects.get(pk=data.get("pk"))
-        board.tag = data.get("tag")
-        board.save()
+    board = Board.objects.get_or_none(pk=data.get("pk"))
 
-    if data.get("content"):
-        """ 내용 수정 """
-        board = Board.objects.get(pk=data.get("pk"))
-        board.content = data.get("content")
-        board.save()
+    if board is not None:
+        if data.get("tag"):
+            """ 태그 수정 """
+            board.tag = data.get("tag")
+            board.save()
 
-    return HttpResponse()
+        if data.get("content"):
+            """ 내용 수정 """
+            board.content = data.get("content")
+            board.save()
+
+        if data.get("toggleValue"):
+            """ 토글 수정 """
+            toggle = data.get("toggleValue")
+            if toggle == "True":
+                board.complete_yn = False
+                board.complete_date = None
+                board.save()
+            else:
+                board.complete_yn = True
+                board.complete_date = datetime.now()
+                board.save()
+
+        return HttpResponse()
+    else:
+        return HttpResponse(status=400)
