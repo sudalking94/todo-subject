@@ -68,12 +68,12 @@ def edit_board(request):
     if board is not None:
         if data.get("tag"):
             """ 태그 수정 """
-            board.tag = data.get("tag")
+            board.tag = data.get("tag").strip()
             board.save()
 
         if data.get("content"):
             """ 내용 수정 """
-            board.content = data.get("content")
+            board.content = data.get("content").strip()
             board.save()
 
         if data.get("toggleValue"):
@@ -88,7 +88,9 @@ def edit_board(request):
                 board.complete_date = datetime.now()
                 board.save()
         if len(data) == 1:
+            """ 태그삭제 """
             board.tag = ""
+            board.tag_color = None
             board.save()
 
         return HttpResponse()

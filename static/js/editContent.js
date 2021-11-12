@@ -37,26 +37,31 @@ function editContent(id) {
 
     btn.addEventListener("click",function(){
         // 수정 클릭시 수정된 데이터 장고 서버로 전송
-        const xhr = new XMLHttpRequest();
-        xhr.open('PUT',`/edit/`);
-        
-        const csrftoken = getCookie('csrftoken');
-        
-        xhr.setRequestHeader('X-CSRFToken', csrftoken);
-        
-        const data = {"content": textarea.value, pk:id};
-        xhr.send(JSON.stringify(data));
-
-        xhr.onload = function() {
-            if (xhr.status == 200){
-                window.location.href = '/';
-            }else{
-                alert("error");
-            }
+        const value = textarea.value.trim()
+        if (value){
+            const xhr = new XMLHttpRequest();
+            xhr.open('PUT',`/edit/`);
             
-          };
-        
-        clickHandler();
+            const csrftoken = getCookie('csrftoken');
+            
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            
+            const data = {"content": value, pk:id};
+            xhr.send(JSON.stringify(data));
+    
+            xhr.onload = function() {
+                if (xhr.status == 200){
+                    window.location.href = '/';
+                }else{
+                    alert("error");
+                }
+                
+              };
+            
+            clickHandler();
+        }else{
+            alert('공백이 불가능합니다.')
+        }
     })
     
 

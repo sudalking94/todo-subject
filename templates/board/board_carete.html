@@ -3,8 +3,28 @@
 {% block content %}
 
     <form method="POST" class="flex flex-col gap-1 fixed top-2/4 left-1/2 -mt-80 -ml-48 z-20">
-        {% csrf_token %}            
-        {{form}}               
+        {% csrf_token %}     
+        {% for field in form %}
+            {% if field.label == '태그' %}
+            <div class="flex justify-between">
+                <div class="flex flex-col">
+                    {{field.label}}
+                    {{field}}
+                </div>
+            {% elif field.label == '태그 색상' %}
+                <div class="flex flex-col">
+                    {{field.label}}
+                    {{field}}   
+                </div>
+            </div>
+
+            {% else %}
+                {{field.label}}
+                {{field}}
+            {% endif %}
+
+            
+        {% endfor %}      
         <div class="flex gap-1">
             <button class="p-2 bg-blue-300 rounded-md w-full hover:bg-blue-400">제출</button>
             <a href="{% url 'boards:board-list' %}" class="text-center p-2 bg-red-400 rounded-md w-full hover:bg-red-500">취소</a>

@@ -7,7 +7,7 @@ class Board(admin.ModelAdmin):
     """ todo 게시판 admin 정의"""
 
     list_display = (
-        'get_content',
+        'content',
         'complete_yn',
         'complete_date',
         'tag',
