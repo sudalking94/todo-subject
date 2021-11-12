@@ -16,6 +16,12 @@ class BoardListView(ListView):
     context_object_name = "boards"
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Board.objects.values_list(
+            'tag', flat=True).distinct()
+        return context
+
     def get_queryset(self):
         filters = {}
         for key, value in self.request.GET.items():

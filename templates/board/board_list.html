@@ -9,25 +9,23 @@
             <div>
                 <a href="{% url 'boards:board-list' %}" class="text-4xl text-gray-800">TO DO</a>
             </div>
-        </div>
-
-
+        </div>    
         
         <div class="w-full flex justify-between">
             <a href="{% url 'boards:create-board' %}" class="p-2 bg-blue-300 rounded-md hover:bg-blue-400">추가</a>
-            <form action="{% url 'boards:board-list' %}">
+            <form action="{% url 'boards:board-list' %}">            
                 <select name="tag">
-                    <option value="">전체</option>
-                    {% for board in boards %}
-                        <option value="{{board.tag}}">{{board.tag}}</option>
+                    <option value="">태그-전체</option>
+                    {% for tag in tags %}
+                        <option value="{{tag}}">{{tag}}</option>
                     {% endfor %}
                 </select>
                 <select name="complete_yn">
-                    <option value="">전체</option>
+                    <option value="">완료여부-전체</option>
                     <option value="1">완료</option>
                     <option value="0">미완료</option>
                 </select>
-                <input name="content" type="text">
+                <input name="content" type="text" placeholder="내용">
                 <button class="p-2 bg-blue-300 rounded-md hover:bg-blue-400">제출</button>
             </form>
         </div>
