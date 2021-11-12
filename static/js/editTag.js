@@ -23,16 +23,19 @@ function editTag(id) {
     const btn = document.getElementById(`${id}-tag-btn`);
     const cancel = document.getElementById(`${id}-tag-cancel`);
     const icon = document.getElementById(`${id}-tag-icon`);
+    const deleteIcon = document.getElementById(`${id}-tag-delete`);
 
     btn.classList.remove("hidden");
     cancel.classList.remove("hidden");
     icon.classList.add("hidden");
+    deleteIcon.classList.add("hidden");
     tag.disabled = false;
     tag.focus();
 
     function clickHandler(){
         // 취소 및 수정 클릭시 기본 값으로 전환
         icon.classList.remove("hidden");
+        deleteIcon.classList.remove("hidden");
         btn.classList.add("hidden");
         cancel.classList.add("hidden");
         tag.disabled = true;
@@ -53,7 +56,7 @@ function editTag(id) {
             }else {
                 alert("error");
             }
-          };
+        };
         
         clickHandler();
     })
