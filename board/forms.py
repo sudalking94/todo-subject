@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import TextInput, Textarea
 from .models import Board
 
 
@@ -13,5 +14,16 @@ class BoardModelForm(forms.ModelForm):
         model = Board
         fields = (
             'tag',
+            'tag_color',
             'content',
         )
+        labels = {
+            'tag': '태그',
+            'tag_color': '태그 색상',
+            'content': '내용',
+        }
+
+        widgets = {
+            'tag_color': TextInput(attrs={'type': 'color', 'value': '#FFFFFF'}),
+            'content': Textarea(attrs={'required': 'true'}),
+        }

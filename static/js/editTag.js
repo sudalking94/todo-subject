@@ -28,14 +28,18 @@ function editTag(id) {
     btn.classList.remove("hidden");
     cancel.classList.remove("hidden");
     icon.classList.add("hidden");
-    deleteIcon.classList.add("hidden");
+    if (deleteIcon){
+        deleteIcon.classList.add("hidden");
+    }
     tag.disabled = false;
     tag.focus();
 
     function clickHandler(){
         // 취소 및 수정 클릭시 기본 값으로 전환
         icon.classList.remove("hidden");
-        deleteIcon.classList.remove("hidden");
+        if (deleteIcon){
+            deleteIcon.classList.remove("hidden");
+        }
         btn.classList.add("hidden");
         cancel.classList.add("hidden");
         tag.disabled = true;
