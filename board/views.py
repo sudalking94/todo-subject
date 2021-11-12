@@ -55,6 +55,13 @@ class BoardCreateView(CreateView):
     def get_success_url(self):
         return reverse("boards:board-list")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Board.objects.exclude(tag__exact='').values_list(
+            'tag', 'tag_color').distinct()
+
+        return context
+
 
 @require_http_methods(["PUT"])
 def edit_board(request):
@@ -69,6 +76,7 @@ def edit_board(request):
         if data.get("tag"):
             """ 태그 수정 """
             board.tag = data.get("tag").strip()
+            board.tag_color = data.get('tag_color')
             board.save()
 
         if data.get("content"):

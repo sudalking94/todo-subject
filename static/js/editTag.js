@@ -17,7 +17,10 @@ function getCookie(name){
 
 function editTag(id) {    
     // 태그 수정 스크립트
-
+    const tagColorDiv = document.getElementById(`${id}-tag-color`);
+    const tagColor = tagColorDiv.firstElementChild;
+    const initTagColor = tagColorDiv.firstElementChild.value;    
+    console.log(initTagColor);
     const tag = document.getElementById(`${id}-tag`);
     const initData = tag.value;
     const btn = document.getElementById(`${id}-tag-btn`);
@@ -25,6 +28,7 @@ function editTag(id) {
     const icon = document.getElementById(`${id}-tag-icon`);
     const deleteIcon = document.getElementById(`${id}-tag-delete`);
 
+    tagColorDiv.classList.remove('hidden');
     btn.classList.remove("hidden");
     cancel.classList.remove("hidden");
     icon.classList.add("hidden");
@@ -41,6 +45,7 @@ function editTag(id) {
             deleteIcon.classList.remove("hidden");
         }
         btn.classList.add("hidden");
+        tagColorDiv.classList.add("hidden");
         cancel.classList.add("hidden");
         tag.disabled = true;
     }
@@ -52,7 +57,7 @@ function editTag(id) {
         const csrftoken = getCookie('csrftoken');
         xhr.setRequestHeader('X-CSRFToken', csrftoken);
         
-        const data = {"tag": tag.value, pk:id};
+        const data = {"tag": tag.value, pk:id, "tag_color":tagColor.value};
         xhr.send(JSON.stringify(data));
         xhr.onload = function() {
             if (xhr.status == 200){
@@ -68,7 +73,8 @@ function editTag(id) {
     cancel.addEventListener('click',function(){
         // 취소 클릭시
         clickHandler();
-        tag.value = initData;
+        tag.value = initData;        
+        tagColor.value = initTagColor;
     })
 }
 
