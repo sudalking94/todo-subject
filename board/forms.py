@@ -24,6 +24,7 @@ class BoardModelForm(forms.ModelForm):
         }
 
         widgets = {
-            'tag_color': TextInput(attrs={'type': 'color', 'value': '#FFFFFF'}),
+            'tag_color': TextInput(attrs={'type': 'color', 'value': '#FFFFFF', 'id': 'input-color'}),
+            'tag': TextInput(attrs={'placeholder': '태그 생성', 'id': 'input-tag'}),
             'content': Textarea(attrs={'required': 'true'}),
         }

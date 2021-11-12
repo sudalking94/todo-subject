@@ -26,7 +26,7 @@
                     <option value="0">미완료</option>
                 </select>
                 <input name="content" type="text" placeholder="내용">
-                <button class="p-2 bg-blue-300 rounded-md hover:bg-blue-400">제출</button>
+                <button class="p-2 bg-blue-300 rounded-md hover:bg-blue-400">검색</button>
             </form>
         </div>
 
@@ -66,9 +66,12 @@
                                    <i class="fas fa-check opacity-30 hover:cursor-pointer" onclick="unCheckToggleHandler({{board.pk}})"></i> 
                                    {% endif %} 
                                 </td>                                                                                                                                                      
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex justify-between"> 
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex justify-between relative"> 
+                                    <div id="{{board.pk}}-tag-color" class="absolute bottom-14 flex flex-col hidden">                                                
+                                        <input type="color" class="cursor-pointer" value="{{board.tag_color}}" >
+                                    </div>
                                     <input id="{{board.pk}}-tag" type="text" value="{{ board.tag }}" disabled class="border-0 rounded-lg" style="background-color: {{board.tag_color}};" />
-                                    <div class="flex justify-center items-center">
+                                    <div class="flex justify-center items-center">                                        
                                         <i id="{{board.pk}}-tag-icon" class="fas fa-edit text-blue-500 hover:cursor-pointer" onclick="editTag({{board.pk}})" ></i>
                                         {% if board.tag %}
                                             <i id="{{board.pk}}-tag-delete" class="fas fa-times text-red-500 hover:cursor-pointer px-1" onclick="deleteTag({{board.pk}})" ></i>
