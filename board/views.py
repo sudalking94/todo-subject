@@ -18,7 +18,7 @@ class BoardListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tags'] = Board.objects.values_list(
+        context['tags'] = Board.objects.exclude(tag__exact='').values_list(
             'tag', flat=True).distinct()
         return context
 
@@ -87,6 +87,9 @@ def edit_board(request):
                 board.complete_yn = True
                 board.complete_date = datetime.now()
                 board.save()
+        if len(data) == 1:
+            board.tag = ""
+            board.save()
 
         return HttpResponse()
     else:

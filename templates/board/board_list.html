@@ -66,9 +66,14 @@
                                    <i class="fas fa-check opacity-30 hover:cursor-pointer" onclick="unCheckToggleHandler({{board.pk}})"></i> 
                                    {% endif %} 
                                 </td>                                                                                                                                                      
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">                                    
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex">                                    
                                     <input id="{{board.pk}}-tag" type="text" value="{{ board.tag }}" disabled class="border-0" />
-                                    <i id="{{board.pk}}-tag-icon" class="fas fa-edit text-blue-500 hover:cursor-pointer" onclick="editTag({{board.pk}})" ></i> 
+                                    <div class="">
+                                        <i id="{{board.pk}}-tag-icon" class="fas fa-edit text-blue-500 hover:cursor-pointer" onclick="editTag({{board.pk}})" ></i>
+                                        {% if board.tag %}
+                                            <i id="{{board.pk}}-tag-delete" class="fas fa-times text-red-500 hover:cursor-pointer px-1" onclick="deleteTag({{board.pk}})" ></i>
+                                        {% endif %} 
+                                    </div>
                                     <button id="{{board.pk}}-tag-btn" class="p-2 bg-blue-300 rounded-md hidden">수정</button>                                   
                                     <button id="{{board.pk}}-tag-cancel" class="p-2 bg-red-300 rounded-md hidden">취소</button>                                   
                                 </td>
