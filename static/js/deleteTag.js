@@ -15,8 +15,7 @@ function getCookie(name){
     return cookieValue;
 }
 
-function deleteTag(id) {
-    console.log(id);
+function deleteTag(id) {    
     const xhr = new XMLHttpRequest();
     xhr.open('PUT',`/edit/`)        
     const csrftoken = getCookie('csrftoken');

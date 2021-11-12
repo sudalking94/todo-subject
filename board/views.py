@@ -104,3 +104,25 @@ def edit_board(request):
         return HttpResponse()
     else:
         return HttpResponse(status=400)
+
+
+@require_http_methods(["PUT"])
+def edit_tag(request):
+    """"todo 생성 페이지 태그 수정 """
+
+    data = json.loads(request.body.decode("utf-8"))
+
+
+@require_http_methods(["PUT"])
+def delete_tag(request):
+    """todo 생성 페이지 태그 삭제 """
+
+    data = json.loads(request.body.decode("utf-8"))
+    board = Board.objects.filter(tag=data.get(
+        'tag'), tag_color=data.get('tag_color'))
+
+    for obj in board:
+        obj.tag = ""
+        obj.tag_color = None
+        obj.save()
+    return HttpResponse()

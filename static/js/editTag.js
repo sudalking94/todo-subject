@@ -16,11 +16,10 @@ function getCookie(name){
 }
 
 function editTag(id) {    
-    // 태그 수정 스크립트
+    // 메인페이지 태그 수정 스크립트
     const tagColorDiv = document.getElementById(`${id}-tag-color`);
     const tagColor = tagColorDiv.firstElementChild;
-    const initTagColor = tagColorDiv.firstElementChild.value;    
-    console.log(initTagColor);
+    const initTagColor = tagColorDiv.firstElementChild.value;        
     const tag = document.getElementById(`${id}-tag`);
     const initData = tag.value;
     const btn = document.getElementById(`${id}-tag-btn`);
@@ -79,3 +78,22 @@ function editTag(id) {
 }
 
 
+function tagDeleteInCreatePage(name){
+    const color = document.getElementById(`hidden-${name}`).value;    
+    const xhr = new XMLHttpRequest();
+        xhr.open('PUT',`/delete-tag/`)        
+        const csrftoken = getCookie('csrftoken');
+        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        
+        const data = {"tag": name,"tag_color":color};
+        xhr.send(JSON.stringify(data));
+        xhr.onload = function() {
+            if (xhr.status == 200){
+                window.location.href = '/create/';
+            }else {
+                alert("error");
+            }
+        };
+    
+
+}

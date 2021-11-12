@@ -70,7 +70,7 @@
                                     <div id="{{board.pk}}-tag-color" class="absolute bottom-14 flex flex-col hidden">                                                
                                         <input type="color" class="cursor-pointer" value="{{board.tag_color}}" >
                                     </div>
-                                    <input id="{{board.pk}}-tag" type="text" value="{{ board.tag }}" disabled class="border-0 rounded-lg" style="background-color: {{board.tag_color}};" />
+                                    <input  id="{{board.pk}}-tag" type="text" value="{{ board.tag }}" disabled class="border-0 rounded-lg" style="background-color: {{board.tag_color}};" />
                                     <div class="flex justify-center items-center">                                        
                                         <i id="{{board.pk}}-tag-icon" class="fas fa-edit text-blue-500 hover:cursor-pointer" onclick="editTag({{board.pk}})" ></i>
                                         {% if board.tag %}
