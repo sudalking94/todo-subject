@@ -1,7 +1,7 @@
-function tagChoice(id) {   
-    const name = id.substring(5)
-    
-    const tagColor = document.getElementById(`hidden-${name}`);
+function tagChoice(span) {   
+    const id = span.id.substring(5);
+    const name = span.textContent;        
+    const tagColor = document.getElementById(`hidden-${id}`);    
     const inputColor = document.getElementById('input-color');
     const inputTag= document.getElementById('input-tag');
         
