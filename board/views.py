@@ -57,8 +57,8 @@ class BoardCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tags'] = Board.objects.exclude(tag__exact='').values_list(
-            'tag', 'tag_color').distinct()
+        context['tags'] = Board.objects.exclude(
+            tag__exact='').values('tag', 'tag_color').distinct()
 
         return context
 
@@ -111,6 +111,15 @@ def edit_tag(request):
     """"todo 생성 페이지 태그 수정 """
 
     data = json.loads(request.body.decode("utf-8"))
+    board = Board.objects.filter(tag=data.get(
+        'initTagName'), tag_color=data.get('initTagColor'))
+
+    for obj in board:
+        obj.tag = data.get('tagName')
+        obj.tag_color = data.get('tagColor')
+        obj.save()
+
+    return HttpResponse()
 
 
 @require_http_methods(["PUT"])
