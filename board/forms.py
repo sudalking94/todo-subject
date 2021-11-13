@@ -4,6 +4,7 @@ from .models import Board
 
 
 class BoardModelForm(forms.ModelForm):
+    """ todo 생성 form """
 
     def save(self, *args, **kwargs):
         board = super().save(commit=False)

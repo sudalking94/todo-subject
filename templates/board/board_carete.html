@@ -34,25 +34,31 @@
         </form>
 
         <div class="flex flex-col gap-1 ml-5 w-64">
-            <span>태그 선택</span>
-            <div class="h-96 overflow-y-scroll flex flex-col gap-1 relative">
-                {% for name,color in tags %}
-                        <div class="">
-                            <div class="flex justify-between  absolute right-0">
-                                <div></div>
-                                <div class="">
-                                    <i class="fas fa-edit text-blue-500 cursor-pointer"></i>
-                                    <i class="fas fa-times text-red-500 cursor-pointer" onclick="tagDeleteInCreatePage('{{name}}')"></i>
-                                </div>
+            <div class="flex justify-between">
+                <span>태그 선택</span>                
+            </div>
+            <div class="h-96 overflow-y-scroll w-96 flex flex-col gap-1 relative">
+                {% for tag in tags %}                                                                 
+                    <div id="div-{{forloop.counter}}" class="">                        
+                        <div class="flex justify-between  absolute right-0">
+                            <div></div>
+                            <div class="">
+                                <i class="fas fa-edit text-blue-500 cursor-pointer" onclick="tagEditInCreatePage('{{forloop.counter}}')"></i>
+                                <i class="fas fa-times text-red-500 cursor-pointer" onclick="tagDeleteInCreatePage('{{forloop.counter}}')"></i>
                             </div>
                         </div>
-                        <input id="hidden-{{name}}" type="hidden" value="{{color}}">
-                        <span id="span-{{name}}" class="w-10/12 rounded-md p-1 cursor-pointer" style="background-color: {{color}};" onclick="tagChoice(this.id)" >{{name}}</span>
-                        <div class="hidden">
-                            <input id="input-{{name}}" class="mx-1" value="{{name}}">
-                            <button class="p-1 bg-blue-300 rounded-md">수정</button>
-                            <button class="p-1 bg-red-300 rounded-md">취소</button>
+                    </div>
+                    <input id="hidden-{{forloop.counter}}" type="hidden" value="{{tag.tag_color}}">
+                    <span id="span-{{forloop.counter}}" class="w-10/12 rounded-md p-1 cursor-pointer" style="background-color: {{tag.tag_color}};" onclick="tagChoice(this)" >{{tag.tag}}</span>                        
+                    <div id="btn-{{forloop.counter}}" class="flex justify-between hidden">
+                        <input id="input-{{forloop.counter}}" class="w-7/12 mx-1 mt-1" value="{{tag.tag}}">
+                        <div class="flex">
+                            <button id="btn-edit-{{forloop.counter}}" class="p-1 bg-blue-300 rounded-md">수정</button>
+                            <button id="btn-cancel-{{forloop.counter}}" class="p-1 bg-red-300 rounded-md">취소</button>
                         </div>
+                        <input id="update-color-{{forloop.counter}}" type="color">                         
+                    </div>
+                    
                 {% endfor %}
             </div>
         </div>

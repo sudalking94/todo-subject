@@ -78,14 +78,18 @@ function editTag(id) {
 }
 
 
-function tagDeleteInCreatePage(name){
-    const color = document.getElementById(`hidden-${name}`).value;    
+function tagDeleteInCreatePage(id){    
+    // todo 생성페이지에서 tag 삭제
+    
+    const tagColor = document.getElementById(`hidden-${id}`).value;    
+    const tagName = document.getElementById(`input-${id}`).value;    
+
     const xhr = new XMLHttpRequest();
         xhr.open('PUT',`/delete-tag/`)        
         const csrftoken = getCookie('csrftoken');
         xhr.setRequestHeader('X-CSRFToken', csrftoken);
         
-        const data = {"tag": name,"tag_color":color};
+        const data = {"tag": tagName,"tag_color":tagColor};
         xhr.send(JSON.stringify(data));
         xhr.onload = function() {
             if (xhr.status == 200){
@@ -96,4 +100,61 @@ function tagDeleteInCreatePage(name){
         };
     
 
+}
+
+function tagEditInCreatePage(id){
+    //수정 클릭전
+    const iconContainer = document.getElementById(`div-${id}`);
+    const spanTag = document.getElementById(`span-${id}`);
+    
+    //수정 클릭후
+    const updateColor = document.getElementById(`update-color-${id}`);
+    const btnContainer = document.getElementById(`btn-${id}`);
+    const inputTag = document.getElementById(`input-${id}`);
+    const btnCancel = document.getElementById(`btn-cancel-${id}`);
+    const btnEdit = document.getElementById(`btn-edit-${id}`);
+    
+    //최초 데이터
+    const initTagName = inputTag.value;
+
+    const initTagColor = document.getElementById(`hidden-${id}`).value;
+    updateColor.value = initTagColor;
+    
+    
+    
+    updateColor.classList.remove('hidden');
+    iconContainer.classList.add('hidden');
+    spanTag.classList.add('hidden');
+    btnContainer.classList.remove('hidden');
+    inputTag.focus();
+
+
+    btnEdit.addEventListener('click',function(){
+        const tagName = inputTag.value;    
+        const tagColor = updateColor.value;                  
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('PUT',`/edit-tag/`);        
+        const csrftoken = getCookie('csrftoken');
+        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        
+        const data = {"initTagName": initTagName,"initTagColor":initTagColor,"tagName":tagName,"tagColor":tagColor};
+        xhr.send(JSON.stringify(data));
+        xhr.onload = function() {
+            if (xhr.status == 200){
+                window.location.href = '/create/';
+            }else {
+                alert("error");
+            }
+        };
+    });
+
+    btnCancel.addEventListener('click',function(){
+        //취소 클릭시
+        inputTag.value = initTagName;        
+        updateColor.classList.add('hidden');
+        iconContainer.classList.remove('hidden');
+        spanTag.classList.remove('hidden');
+        btnContainer.classList.add('hidden');
+    });
 }

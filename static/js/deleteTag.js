@@ -16,6 +16,7 @@ function getCookie(name){
 }
 
 function deleteTag(id) {    
+    // 메인화면 태그삭제
     const xhr = new XMLHttpRequest();
     xhr.open('PUT',`/edit/`)        
     const csrftoken = getCookie('csrftoken');

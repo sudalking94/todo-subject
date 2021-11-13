@@ -16,6 +16,8 @@ function getCookie(name){
 }
 
 function httprequestHandler(id,toggleValue){
+    //todo 완료 여부 request
+
     const xhr = new XMLHttpRequest();
     xhr.open('PUT',`/edit/`)        
     const csrftoken = getCookie('csrftoken');
