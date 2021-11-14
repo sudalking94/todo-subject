@@ -15,16 +15,24 @@
 ## 필수 설치 항목
 - pipenv
 - python version 3.9 (pipfile 에서 python version 변경 가능)
+- nodejs 또는 npm
 
 ## 실행 방법
 ```
 $ git clone https://github.com/sudalking94/todo-subject # Reposiory 복사
 $ cd todo-subject                                       # 설치한 폴더로 이동
+# root directory에서 .env 파일 SECRET_KEY 값 설정
 $ pipenv sync                                           # 가상환경 dependency 설치
 $ pipenv shell                                          # 가상환경 실행
-# root directory에서 .env 파일 SECRET_KEY 값 설정
+$ python manage.py migrate
+$ python manage.py tailwind install                     # tailwind css 적용을 위한 dependencies 설치
+$ python manage.py tailwind start                       # tailwind css 적용
 $ python manage.py runserver                            # 서버실행
 ```
+
+## npm 경로 오류시
+- config/settings.py파일에  NPM_BIN_PATH = npm 설치 경로 설정
+- 대부분의 windows npm 경로는  NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd" 입니다.
 
 
 ## 개발을 진행하면서...

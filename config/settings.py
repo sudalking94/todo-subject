@@ -143,3 +143,9 @@ TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+"""
+ windows npm 경로 설정
+ npm 설치 경로 입니다. 
+"""
+# NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
